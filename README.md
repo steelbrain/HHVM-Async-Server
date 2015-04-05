@@ -46,6 +46,32 @@ GenArrayWaitHandle::create([
 // This way your program and the HTTP Server and App will run co-currently
 ```
 
+As you can see above, the code above looks un-clean, to fix that, Server class contains a method `ListenInCoop` just for this purpose. Here's how you can use it.
+
+```hack
+class MyServerSidedApp{
+  public Server $Server;
+  public function __construct(){
+    $this->Server = $Server = new Server('localhost', 9098);
+  }
+  public async function OnConnect(resource $Client):Awaitable<void>{
+    await Server::OnResponse($Client, async function(string $Data, resource $Client){
+      echo "Client Sent Data: $Data\n";
+    });
+  }
+  public async function Init():Awaitable<void>{
+    await $this->Server->ListenInCoop(inst_meth($this, 'OnConnect'), async function(Server $Instance):Awaitable<void>{
+      ... Do Stuff
+      if(ShouldCloseServer()){
+        $Instance->Close();
+      }
+    });
+  }
+}
+$App = new MyServerSidedApp();
+$App->Init()->getWaitHandle()->join();
+```
+
 #### License
 
 This Project is licensed under the terms of MIT License.
