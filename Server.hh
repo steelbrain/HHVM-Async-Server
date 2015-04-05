@@ -11,11 +11,13 @@ class Server{
     });
     $Handles = Vector{};
     while(is_resource($Socket)){
-      $Handles->add($Callback(socket_accept($Socket))->getWaitHandle());
-      if($Handles->count() === 20){
-        await GenVectorWaitHandle::create($Handles);
-        $Handles->clear();
-      }
+      try {
+        $Handles->add($Callback(socket_accept($Socket))->getWaitHandle());
+        if($Handles->count() === 20){
+          await GenVectorWaitHandle::create($Handles);
+          $Handles->clear();
+        }
+      } catch(Exception $e){} // Let the server run!
     }
   }
   public static async function OnResponse(resource $Socket, (function(string, resource):Awaitable<void>) $Callback):Awaitable<void>{
