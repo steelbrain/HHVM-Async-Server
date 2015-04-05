@@ -40,8 +40,8 @@ GenArrayWaitHandle::create([
   $App->Server->Listen(async function(resource $Client){
     await Server::OnResponse($Client, async function(string $Data, resource $Client){
       echo "Client Sent Data: $Data\n";
-    })->getWaitHandle()
-  ), $App->Init()]
+    });
+  })->getWaitHandle(), $App->Init()]
 )->join();
 // This way your program and the HTTP Server and App will run co-currently
 ```
