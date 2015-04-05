@@ -1,6 +1,6 @@
 <?hh
 async function DoIt(int $I):Awaitable<void>{
-  await SleepWaitHandle::create(rand(1,5) * 000000);
+  await SleepWaitHandle::create(rand(1,5) * 1000000);
   $Client = stream_socket_client('localhost:9098');
   fwrite($Client, "HELL YEAH");
   await SleepWaitHandle::create(rand(5, 10) * 1000000);
