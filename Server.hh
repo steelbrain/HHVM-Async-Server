@@ -13,7 +13,7 @@ class Server{
     while(is_resource($Socket)){
       try {
         $Handles->add($Callback(socket_accept($Socket))->getWaitHandle());
-        if($Handles->count() === 20){
+        if($Handles->count() === 2){
           await GenVectorWaitHandle::create($Handles);
           $Handles->clear();
         }
