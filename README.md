@@ -46,6 +46,10 @@ GenArrayWaitHandle::create([
 // This way your program and the HTTP Server and App will run co-currently
 ```
 
+#### License
+
+This Project is licensed under the terms of MIT License.
+
 [HHVM]:https://github.com/facebook/hhvm
 [HackLang]:http://hacklang.org
 [async functions]:http://docs.hhvm.com/manual/en/hack.async.php
